@@ -49,12 +49,7 @@ def encode_url(url):
     return base64.urlsafe_b64encode(url.encode()).decode().strip('=')
 
 def determine_result(analysis_details):
-    total_count = 0
-
-    for key, values in analysis_details.items():
-        total_count += values
-
-    if(analysis_details["malicious_count"]/total_count > THRESHOLD):
+    if(analysis_details["malicious_count"] > 1):
         return 1
 
     return 0
