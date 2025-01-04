@@ -1,8 +1,10 @@
 # this is the entry point
 import streamlit as st
-st.set_page_config(layout="centered")
+from utils import check_URL
 
 # css for centering
+st.set_page_config(layout="centered")
+
 st.markdown("""
     <style>
     .centered {
@@ -24,6 +26,15 @@ if st.button("Check"):
         st.write("Please enter a valid URL")
     else:
         # call required functions
-        pass
+        parent_URL_result = check_URL.check(user_input)
+        
+        if(parent_URL_result == 0):
+            st.write('<span style="color: green; font-size: 18px;">Parent URL is Safe*</span>', unsafe_allow_html=True)
+        elif(parent_URL_result == 1):
+            st.write('<span style="color: red; font-size: 18px;">Parent URL is flagged phishing*</span>', unsafe_allow_html=True)
+        else:
+            st.write('<span style="color: orange; font-size: 18px;">Some Error Occurred</span>', unsafe_allow_html=True)
+        
 
+st.write('<span style="color: grey; font-size: 12px;">* : the model may produce wrong results. Please proceed with own caution</span>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
