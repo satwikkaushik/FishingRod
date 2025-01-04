@@ -11,13 +11,15 @@ with open("config.json", "r") as file:
     API_KEY = config.get("api_key")
     THRESHOLD = config.get("threshold")
 
-
 REQ_HEADER = {
     "accept": "application/json",
         "x-apikey": API_KEY
 }
 
 def check(url):
+    if(not API_rate_limiter()):
+        return -1
+
     url = encode_url(url)
 
     try:
@@ -53,3 +55,32 @@ def determine_result(analysis_details):
         return 1
 
     return 0
+
+def API_rate_limiter():
+    from datetime import datetime
+
+    config = ""
+    with open("config.json", "r") as file:
+        config = json.load(file)
+    
+    prev_timestamp = config.get("prev_timestamp")
+    current_timestamp = datetime.now().timestamp()
+
+    if(round(current_timestamp - prev_timestamp) > 60):
+        config["prev_timestamp"] = current_timestamp
+        config["API_call_count"] = 1
+
+        with open("config.json", "w") as file:
+            json.dump(config, file, indent=4)
+
+        return True
+    elif(config.get("API_call_count") < 4):
+        config["API_call_count"] += 1
+        config["prev_timestamp"] = current_timestamp
+        
+        with open("config.json", "w") as file:
+            json.dump(config, file, indent=4)
+
+        return True
+    else:
+        return False
