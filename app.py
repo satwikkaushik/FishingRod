@@ -3,8 +3,21 @@ import streamlit as st
 from utils import check_URL, extract_URL
 
 def check_forwarding_URL(parent_URL):
-    pass
+    forwarding_URLs = extract_URL.extract(parent_URL)
+    result = 0
 
+    for link in forwarding_URLs:
+        link_result = check_URL.check(link)
+        if(link_result == -1):
+            break
+        else :
+            result += link_result
+
+    if(round(result/len(forwarding_URLs), 2) <= 0.30):
+        return 0
+    else:
+        return 1
+    
 def main():
     # css for centering
     st.set_page_config(layout="centered")
@@ -37,6 +50,10 @@ def main():
                 st.write('<span style="color: green; font-size: 18px;">Analyzing Forwarding URLs</span>', unsafe_allow_html=True)
 
                 fowarding_URL_result = check_forwarding_URL(user_input)
+                if(fowarding_URL_result == 0):
+                    st.write('<span style="color: green; font-size: 18px;">Forwarding URLs are Safe*</span>', unsafe_allow_html=True)
+                else:
+                    st.write('<span style="color: red; font-size: 18px;">Forwarding URLs were flagged Phishing*</span>', unsafe_allow_html=True)
 
             elif(parent_URL_result == 1):
                 st.write('<span style="color: red; font-size: 18px;">Parent URL is flagged phishing*</span>', unsafe_allow_html=True)
