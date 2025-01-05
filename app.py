@@ -30,20 +30,20 @@ def buttonClicked(user_input):
     with right_UI:
         # no need for further checking if Parent URL was falgged
         if(parent_URL_result == 0):
-            st.write('<span style="color: green; font-size: 18px;">Parent URL is Safe*</span>', unsafe_allow_html=True)
-            st.write('<span style="color: green; font-size: 18px;">Analyzing Forwarding URLs</span>', unsafe_allow_html=True)
+            st.success("Parent URL is safe*")
+            st.write("Analyzing forwarding URLs")
 
             # analyzing forwarding URL
             fowarding_URL_result = check_forwarding_URL(user_input)
             if(fowarding_URL_result == 0):
-                st.write('<span style="color: green; font-size: 18px;">Forwarding URLs are Safe*</span>', unsafe_allow_html=True)
+                st.success("Forwarding URLs are safe*")
             else:
-                st.write('<span style="color: red; font-size: 18px;">Forwarding URLs were flagged Phishing*</span>', unsafe_allow_html=True)
+                st.error("One or multiple forwarding URLs were flagged*")
 
         elif(parent_URL_result == 1):
-            st.write('<span style="color: red; font-size: 18px;">Parent URL is flagged phishing*</span>', unsafe_allow_html=True)
+            st.error("Parent URL was flagged*")
         else:
-            st.write('<span style="color: orange; font-size: 18px;">Some Error Occurred</span>', unsafe_allow_html=True)
+            st.warning("Some error occurred")
     
 def main():
     # elements in left side of UI
@@ -52,11 +52,11 @@ def main():
         if st.button("Check"):
             buttonClicked(user_input)
 
+        st.caption("\* the model may produce wrong results. Please proceed with own caution")
+
     # elements in right side of UI
     with right_UI:
         pass
-
-    st.write('<span style="color: grey; font-size: 12px;">* : the model may produce wrong results. Please proceed with own caution</span>', unsafe_allow_html=True)
 
 # dividing UI into two columns
 left_UI, right_UI = st.columns([2, 1])
