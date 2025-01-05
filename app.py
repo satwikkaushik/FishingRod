@@ -28,10 +28,12 @@ def buttonClicked(user_input):
     
     # rendering results in right side of UI
     with right_UI:
+        # no need for further checking if Parent URL was falgged
         if(parent_URL_result == 0):
             st.write('<span style="color: green; font-size: 18px;">Parent URL is Safe*</span>', unsafe_allow_html=True)
             st.write('<span style="color: green; font-size: 18px;">Analyzing Forwarding URLs</span>', unsafe_allow_html=True)
 
+            # analyzing forwarding URL
             fowarding_URL_result = check_forwarding_URL(user_input)
             if(fowarding_URL_result == 0):
                 st.write('<span style="color: green; font-size: 18px;">Forwarding URLs are Safe*</span>', unsafe_allow_html=True)
