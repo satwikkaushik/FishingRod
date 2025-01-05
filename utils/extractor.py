@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def extract(url):
+def extract_URL(url):
     # checking format of URL
     if("https://" not in url):
         url = "https://" + url

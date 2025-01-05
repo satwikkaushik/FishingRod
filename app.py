@@ -1,9 +1,9 @@
 # this is the entry point
 import streamlit as st
-from utils import check_URL, extract_URL
+from utils import check_URL, extractor
 
 def check_forwarding_URL(parent_URL):
-    forwarding_URLs = extract_URL.extract(parent_URL)
+    forwarding_URLs = extractor.extract_URL(parent_URL)
     result = 0
 
     for link in forwarding_URLs:
