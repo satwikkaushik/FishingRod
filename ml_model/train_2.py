@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
 # loading dataset
-df = pandas.read_csv("ml-model/datasets/legitimate_phishing_structured_dataset.csv")
+df = pandas.read_csv("ml_model/datasets/legitimate_phishing_structured_dataset.csv")
 df = df.drop(columns=["URL"], errors="ignore")
 # print(df.head(5))
 
@@ -32,4 +32,4 @@ accuracy = accuracy_score(Y_test, Y_pred)
 print(f'Accuracy: {accuracy:.2f}')
 
 # saving the model
-joblib.dump(model, "./ml-model/LR_model.pkl")
+joblib.dump(model, "./ml_model/LR_model.pkl")

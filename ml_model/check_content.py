@@ -74,11 +74,18 @@ def preprocessing(features):
     return df_scaled
 
 def predict_result(df):
-    model = joblib.load("./ml-model/LR_model.pkl")
+    model = joblib.load("./ml_model/LR_model.pkl")
     prediction = model.predict(df)
     return prediction
 
+def format_URL(url):
+    if("https://" not in url):
+        url = "https://" + url
+
+    return url
+
 def check(url):
+    url = format_URL(url)
     html = extract_HTML(url)
     features = extract_features(html)
     df = preprocessing(features)
