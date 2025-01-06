@@ -52,11 +52,17 @@ def main():
         if st.button("Check"):
             buttonClicked(user_input)
 
+        st.divider()
         st.caption("\* the model may produce wrong results. Please proceed with own caution")
 
     # elements in right side of UI
     with right_UI:
         pass
+
+
+# heading
+st.header("Fishing Rod 🎣")
+st.divider()
 
 # dividing UI into two columns
 left_UI, right_UI = st.columns([2, 1])
