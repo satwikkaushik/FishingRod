@@ -1,6 +1,7 @@
 # this is the entry point
 import streamlit as st
 from utils import check_URL, extractor
+from ml_model import check_content
 
 def check_forwarding_URL(parent_URL):
     forwarding_URLs = extractor.extract_URL(parent_URL)
@@ -39,6 +40,13 @@ def buttonClicked(user_input):
                 st.success("Forwarding URLs are safe*")
             else:
                 st.error("One or multiple forwarding URLs were flagged*")
+
+            # analyzing HTML contents
+            HTML_analysis_result = check_content.check(user_input)
+            if(HTML_analysis_result == 0):
+                st.success("Web contents seems legit*")
+            else:
+                st.error("Web contents seems fishy*")
 
         elif(parent_URL_result == 1):
             st.error("Parent URL was flagged*")
